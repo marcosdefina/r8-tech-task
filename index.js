@@ -1,41 +1,20 @@
 function desserializeData(dataset){
-  var data = [];
+  var aux = new Array(2);
+  aux[0] = new Array(dataset.length)
+  aux[1] = new Array(dataset.length)
   var i = 0;
 
   while(i < dataset.length){
-    data[i].push(timeConverter(dataset[i]["0"]));
-    data[i].push(dataset[i]["1"]);
+    aux[0][i] = timeConverter(dataset[i]["0"]);
+    aux[1][i] = dataset[i]["1"];
     i++;
   }
-  return data;
+  return aux;
 }
 
 function timeConverter(time){
   return new Date(time).toString();
 }
-
-function plot(data, dom){
-  Plotly.plot( dom, 
-      [{
-        x: data[0], y:data[0]
-      }],
-      { 
-        margin: { t: 0 }
-      },
-      {showSendToCloud:true}
-  );
-}
-
-var firstDataSet = window.datasets['15360'];
-var secondDataSet = window.datasets['15361'];
-var thirdDataSet = window.datasets['15377'];
-var fourthDataSet = window.datasets['17006'];
-var datasets = [firstDataSet, secondDataSet, thirdDataSet, fourthDataSet];
-
-var data;
-for(var dataset in datasets){
-  data.push(desserializeData(dataset));
-} 
 
 var firstGraph = document.getElementById('first');
 var secondGraph = document.getElementById('second');
@@ -43,6 +22,32 @@ var thirdGraph = document.getElementById('third');
 var fourthGraph = document.getElementById('fourth');
 var graphs = [firstGraph, secondGraph, thirdGraph, fourthGraph];
 
-for(var graph in graphs){
-  plot(data[graphs.indexOf(graph)] ,graph);
+var firstDataSet = window.datasets['15360'];
+var secondDataSet = window.datasets['15361'];
+var thirdDataSet = window.datasets['15377'];
+var fourthDataSet = window.datasets['17006'];
+var dataSets = [firstDataSet, secondDataSet, thirdDataSet, fourthDataSet];
+
+var data = [];
+
+for(i=0; i<dataSets.length; i++){
+  data.push(desserializeData(dataSets[i]));
+} 
+
+
+for(var i = 0; i < graphs.length; i++){
+
+  var layout = {
+    xaxis: {
+      smoothing: 1,
+      minorgridcount: 9,
+    },
+    yaxis: {
+      ticksuffix: i == 0 ? '%':'ºC',
+      smoothing: 1,
+      minorgridcount: 9,
+    },
+  };
+
+  Plotly.newPlot(graphs[i], [{x:data[i][0],y:data[i][1]}], layout);
 }
