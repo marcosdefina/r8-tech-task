@@ -21,16 +21,19 @@
     <body>
         <button onclick="location.href='/bollinger-bands.html'" style="background-color: palevioletred">Bollinger Test</button>
         <button onclick="insertData(graphs[0])">Generate Data</button>
-        <button onclick="fourier.dft(graphs[0].data[0].y, imagArray);">Frequency Domain</button>
+        <button onclick="fourierTransform(graphs[0].data[0].y);">Frequency Domain</button>
         <div id="first"  class="graph"></div>
 
         <button onclick="insertData(graphs[1])">Generate Data</button>
+        <button onclick="fourierTransform(graphs[1].data[0].y);">Frequency Domain</button>
         <div id="second"class="graph"></div>
 
         <button onclick="insertData(graphs[2])">Generate Data</button>
+        <button onclick="fourierTransform(graphs[2].data[0].y);">Frequency Domain</button>
         <div id="third" class="graph"></div>
 
         <button onclick="insertData(graphs[3])">Generate Data</button>
+        <button onclick="fourierTransform(graphs[3].data[0].y);">Frequency Domain</button>
         <div id="fourth"class="graph"></div>
         
         <script src="node_modules/fourier/fourier.js"></script>

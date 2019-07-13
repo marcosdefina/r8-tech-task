@@ -101,6 +101,38 @@ function generateTrace(data){
   ];
 }
 
+function fourierTransform(data){
+  // Init
+  var stdlib = {
+      Math: Math,
+      Float32Array: Float32Array,
+      Float64Array: Float64Array
+  };
+
+  console.log(stdlib)
+
+
+  console.log(stdlib)
+
+
+
+  // Create heap for the fft data and twiddle factors
+  var heap = fourier.custom.alloc(65536, 3);
+
+  // Create instance of FFT runner
+  var fft_f64_65536_asm_runner = fourier.custom.fft_f64_65536_asm(stdlib, null, heap);
+
+  // Init twiddle factors
+  fft_f64_65536_asm_runner.init();
+
+  // Run transformations
+  fft_f64_65536_asm_runner.transform();
+
+  console.log(data);
+  console.log(fft_f64_65536_asm_runner)
+
+}
+
 var firstGraph = document.getElementById('first');
 var secondGraph = document.getElementById('second');
 var thirdGraph = document.getElementById('third');
@@ -117,7 +149,6 @@ var dataSets = [firstDataSet, secondDataSet, thirdDataSet, fourthDataSet];
 for(var i = 0; i < graphs.length; i++){
   renderGraph(graphs[i], desserializeData(dataSets[i]));
 }
-console('hello')
 
 instanceOfSDC = new StandardDeviationClass();
 console.log(instanceOfSDC.standardDeviation(desserializeData(dataSets[0])[1]));
