@@ -4,10 +4,18 @@
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     </head>
     <body>
-        <div id="first" style="width:90%;height:250px;"></div>
-        <div id="second" style="width:90%;height:250px;"></div>
-        <div id="third" style="width:90%;height:250px;"></div>
-        <div id="fourth" style="width:90%;height:250px;"></div>
+        <button onclick="insertData(graphs[0])">Generate Data</button>
+        <div id="first"  style="width:100%;height:50%;"></div>
+
+        <button onclick="insertData(graphs[1])">Generate Data</button>
+        <div id="second" style="width:100%;height:50%;"></div>
+
+        <button onclick="insertData(graphs[2])">Generate Data</button>
+        <div id="third"  style="width:100%;height:50%;"></div>
+
+        <button onclick="insertData(graphs[3])">Generate Data</button>
+        <div id="fourth" style="width:100%;height:50%;"></div>
+
         <script src="R8data.js"></script>
         <script src="index.js"></script>
     </body>
