@@ -4,6 +4,7 @@
   "description": "Plot data in a simple DOM using Plotly.js",
   "main": "index.js",
   "scripts": {
+    "start":"http-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/marcosdefina/r8-tech-task#readme",
   "devDependencies": {
-    "bollinger-bands": "^3.0.1"
+    "bollinger-bands": "^3.0.1",
+    "http-server": "^0.11.1"
   }
 }

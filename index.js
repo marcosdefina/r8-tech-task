@@ -90,7 +90,15 @@ function renderGraph(graph, data){
   * @param { Array } data contains y and x values 
  */
 function generateTrace(data){
-  return [{x:data[0], y:data[1]}];
+  return [
+    {
+      line: {widht:1},
+      mode:'scatter',
+      type:'line',
+      x:data[0],
+      y:data[1],
+    }
+  ];
 }
 
 var firstGraph = document.getElementById('first');
