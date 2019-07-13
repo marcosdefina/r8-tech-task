@@ -1,0 +1,22 @@
+{
+  "name": "r8-task",
+  "version": "1.0.0",
+  "description": "Plot data in a simple DOM using Plotly.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcosdefina/r8-tech-task.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marcosdefina/r8-tech-task/issues"
+  },
+  "homepage": "https://github.com/marcosdefina/r8-tech-task#readme",
+  "devDependencies": {
+    "bollinger-bands": "^3.0.1"
+  }
+}
