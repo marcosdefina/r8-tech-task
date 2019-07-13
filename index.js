@@ -117,3 +117,7 @@ var dataSets = [firstDataSet, secondDataSet, thirdDataSet, fourthDataSet];
 for(var i = 0; i < graphs.length; i++){
   renderGraph(graphs[i], desserializeData(dataSets[i]));
 }
+console('hello')
+
+instanceOfSDC = new StandardDeviationClass();
+console.log(instanceOfSDC.standardDeviation(desserializeData(dataSets[0])[1]));

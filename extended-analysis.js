@@ -1,5 +1,5 @@
 /**
- * module description
+ * A compiled of methods to compute the standard deviation of arrays of data
  * @module StandardDeviationClass
  */
 /** StandardDeviationClass description */
@@ -45,5 +45,28 @@ export class StandardDeviationClass{
       return sqr;
     });
     return squareDiffs;
+  }
+}
+
+
+/**
+ * A compiled of methods to compute the laplacian transform of a dataset
+ * @module Laplacian
+ */
+/** StandardDeviationClass description */
+export class Laplacian{
+  sgn(x) {
+      return x < 0 ? -1 : 1;
+  }
+
+  // From wikipedia:
+  // Lap(X) = mu - b sgn(U) ln (1-2|U|) where U is a random variable between -0.5 and 0.5
+  laplace(mu, b) {
+      var U = Math.random() - 0.5;
+      return mu - (b * sgn(U) * Math.log(1 - 2* Math.abs(U)));
+  }
+
+  privatize(F,deltaF,epsilon) {
+      return F + laplace(0.0, deltaF/epsilon);
   }
 }

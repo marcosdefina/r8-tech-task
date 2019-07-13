@@ -4,7 +4,7 @@
   "description": "Plot data in a simple DOM using Plotly.js",
   "main": "index.js",
   "scripts": {
-    "start":"http-server",
+    "start": "http-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,5 +20,8 @@
   "devDependencies": {
     "bollinger-bands": "^3.0.1",
     "http-server": "^0.11.1"
+  },
+  "dependencies": {
+    "fourier": "^0.3.0"
   }
 }

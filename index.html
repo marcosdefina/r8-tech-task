@@ -19,8 +19,9 @@
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     </head>
     <body>
-        <button onclick="location.href='/bollinger-bands.html'">Bollinger Test</button>
+        <button onclick="location.href='/bollinger-bands.html'" style="background-color: palevioletred">Bollinger Test</button>
         <button onclick="insertData(graphs[0])">Generate Data</button>
+        <button onclick="fourier.dft(graphs[0].data[0].y, imagArray);">Frequency Domain</button>
         <div id="first"  class="graph"></div>
 
         <button onclick="insertData(graphs[1])">Generate Data</button>
@@ -31,7 +32,9 @@
 
         <button onclick="insertData(graphs[3])">Generate Data</button>
         <div id="fourth"class="graph"></div>
-
+        
+        <script src="node_modules/fourier/fourier.js"></script>
+        <script src="extended-analysis.js"></script>
         <script src="R8data.js"></script>
         <script src="index.js"></script>
     </body>
