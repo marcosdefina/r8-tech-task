@@ -2,6 +2,20 @@
 ## Description
 Plot data in a simple DOM using Plotly.js
 
+## Install
+  This projects requires:
+   - Node js:
+     - you can install Node Version Manager (nvm) [here](https://github.com/nvm-sh/nvm)
+     > nvm install node
+   - Dependencies:
+     >npm install
+  
+## Running
+For seeing the project you gonna need:
+ - Access github.pages [here](https://marcosdefina.github.io/r8-tech-task)
+ - Or you can run it locally
+   >npm start
+
 ## Data Interpretation
 
   - **1º Graph** - *Heater Power Controller* - Due to the quick changes and the dispersion of the values between 0% and 100%, I supposed it can be a power controller.
