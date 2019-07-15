@@ -109,6 +109,7 @@ for(var i = 0; i < graphs.length; i++){
     x: desData[i][0],
     y: desData[i][1],
     type: 'scatter',
+    yaxis: i==0? 'y2': undefined,
   };
 }
 
@@ -116,22 +117,24 @@ var layout = {
   xaxis: {
     autotick: false,
     ticks: 'outside',
-    tickcolor: '#000'
+    dtick: 1000*60*60*24*30,
   },
   yaxis: {
     autotick: false,
-    title: 'trace',
+    title: 'Temperature',
     ticksuffix:'ºC',
+    dtick: 10,
     ticks: 'outside',
-    tickcolor: '#000',
-    side: 'right',
+    side: 'left',
   },
   yaxis2: {
-    title: 'trace0',
+    autotick: false,
+    title: 'Heater\'s Percentual Power',
     ticksuffix:'%',
+    dtick: 20,
     overlaying: 'y', 
-    side: 'left',
+    side: 'right',
 }
 };
 
-Plotly.newPlot(document.getElementById('aio'), aio);
+Plotly.newPlot(document.getElementById('aio'), aio,layout);
