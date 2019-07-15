@@ -22,21 +22,9 @@
     </head>
     <body>
         <!--TODO: Make insertData works to more than one dataset-->
+
+        <button onclick="insertData(document.getElementById('aio'))">Generate Data</button>
         <div id="aio" class="graph"></div>
-
-        <button onclick="insertData(graphs[0])">Generate Data</button>
-        <!--TODO: renderGraph is not converting the time, make it work-->
-        <button onclick="renderGraph(graphs[0], desserializeData(dataSets[0]));" style="background-color: black">Original Data</button>
-        <div id="first"  class="graph"></div>
-
-        <button onclick="insertData(graphs[1])">Generate Data</button>
-        <div id="second"class="graph"></div>
-
-        <button onclick="insertData(graphs[2])">Generate Data</button>
-        <div id="third" class="graph"></div>
-
-        <button onclick="insertData(graphs[3])">Generate Data</button>
-        <div id="fourth"class="graph"></div>
 
         <script src="R8data.js"></script>
         <script src="index.js"></script>

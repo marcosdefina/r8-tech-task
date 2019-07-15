@@ -32,32 +32,35 @@ function timeConverter(date, inverse){
  * @param {DOM Element} graph DOM Element where the graph will be reendered
  */
 function insertData(graph){
-  
-  data = [graph.data[0].x, graph.data[0].y]; // takes this graph data
-  sample = [graph.data[0].x, graph.data[0].y]; // makes a graph data "copy"
-  newData = new Array(2);
+  console.log(graph.data)
+  for(k = 0; k < graph.data.length; k++){
+    
+    data = [graph.data[k].x, graph.data[k].y]; // takes this graph data
+    sample = [graph.data[k].x, graph.data[k].y]; // makes a graph data "copy"
+    newData = new Array(2);
 
-  //
-  data[0] = convertTimeArray(data[0], true);
-  sample[0] = convertTimeArray(sample[0], true);
+    data[0] = convertTimeArray(data[0], true);
+    sample[0] = convertTimeArray(sample[0], true);
 
-  finalX = sample[0][sample[0].length - 1].getTime(); // saves the last time
+    finalX = sample[0][sample[0].length - 1].getTime(); // saves the last time
 
-  for(i = 0; i < data.length; i++){
-    sample[i] = sample[i].slice(0, Math.floor(sample[i].length/2)); // takes the first sample's half
+    for(i = 0; i < data.length; i++){
+      sample[i] = sample[i].slice(0, Math.floor(sample[i].length/2)); // takes the first sample's half
 
-    if(i==0) for(j = 0; j < sample[0].length; j++){ // extends the sample x value from finalX
-      sample[0][j] = new Date(finalX + (j+1)*1000*60*15);
+      if(i==0) for(j = 0; j < sample[0].length; j++){ // extends the sample x value from finalX
+        sample[0][j] = new Date(finalX + (j+1)*1000*60*15);
+      }
+
+      newData[i] = new Array(data[i].length + sample[i].length);
+      newData[i] = data[i].concat(sample[i]);
     }
-
-    newData[i] = new Array(data[i].length + sample[i].length);
-    newData[i] = data[i].concat(sample[i]);
+    
+    newData[0] = convertTimeArray(newData[0],false);
+    graph.data[k] = generateTrace(newData, false);
   }
 
-  newData[0] = convertTimeArray(newData[0],false);
-  console.log(newData);
+  console.log(graph.data);
 
-  graph.data = generateTrace(newData, true);
   Plotly.redraw(graph);
 }
 /** Converts timestamps in dates or dates in timestamps
@@ -91,12 +94,6 @@ function generateTrace(data, isObejct){
     return {name:'',x:data[0], y:data[1]};
 }
 
-var firstGraph = document.getElementById('first');
-var secondGraph = document.getElementById('second');
-var thirdGraph = document.getElementById('third');
-var fourthGraph = document.getElementById('fourth');
-var graphs = [firstGraph, secondGraph, thirdGraph, fourthGraph];
-
 var firstDataSet = window.datasets['15360'];
 var secondDataSet = window.datasets['15361'];
 var thirdDataSet = window.datasets['15377'];
@@ -119,7 +116,7 @@ var layout = {
   },
   yaxis2: {
     autotick: false,
-    title: 'Heater\'s Percentual Power',
+    title: 'Potential Savings',
     ticksuffix:'%',
     dtick: 20,
     overlaying: 'y', 
@@ -130,12 +127,11 @@ var layout = {
 //first Render
 desData = [];
 aio = new Array(4);
-for(var i = 0; i < graphs.length; i++){
+for(var i = 0; i < 4; i++){
   desData[i] = desserializeData(dataSets[i]);
   for(j = 0; j < desData[i][0].length; j++){
     desData[i][0][j] = desData[i][0][j] == null? null : timeConverter(desData[i][0][j], false);
   }
-  renderGraph(graphs[i], desData[i]);
   aio[i] =  {
     name: i == 0? '15360' : i==1? '15361': i==2? '15377': '17006',
     x: desData[i][0],
