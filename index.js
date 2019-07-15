@@ -140,5 +140,7 @@ for(var i = 0; i < 4; i++){
     yaxis: i==0? 'y2': undefined,
   };
 }
-
-Plotly.newPlot(document.getElementById('aio'), aio,layout);
+function firstPlot(){
+  Plotly.newPlot(document.getElementById('aio'), aio,layout);
+}
+firstPlot();
