@@ -19,6 +19,7 @@
   "homepage": "https://github.com/marcosdefina/r8-tech-task#readme",
   "devDependencies": {
     "bollinger-bands": "^3.0.1",
+    "fourier-transform": "^1.1.2",
     "http-server": "^0.11.1"
   },
   "dependencies": {

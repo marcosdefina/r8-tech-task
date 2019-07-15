@@ -21,21 +21,22 @@
     <body>
         <button onclick="location.href='/bollinger-bands.html'" style="background-color: palevioletred">Bollinger Test</button>
         <button onclick="insertData(graphs[0])">Generate Data</button>
-        <button onclick="fourierTransform(graphs[0].data[0].y);">Frequency Domain</button>
+        <button onclick="fourierTransform(graphs[0]);">Frequency Domain</button>
         <div id="first"  class="graph"></div>
 
         <button onclick="insertData(graphs[1])">Generate Data</button>
-        <button onclick="fourierTransform(graphs[1].data[0].y);">Frequency Domain</button>
+        <button onclick="fourierTransform(graphs[1]);">Frequency Domain</button>
         <div id="second"class="graph"></div>
 
         <button onclick="insertData(graphs[2])">Generate Data</button>
-        <button onclick="fourierTransform(graphs[2].data[0].y);">Frequency Domain</button>
+        <button onclick="fourierTransform(graphs[2]);">Frequency Domain</button>
         <div id="third" class="graph"></div>
 
         <button onclick="insertData(graphs[3])">Generate Data</button>
-        <button onclick="fourierTransform(graphs[3].data[0].y);">Frequency Domain</button>
+        <button onclick="fourierTransform(graphs[3]);">Frequency Domain</button>
         <div id="fourth"class="graph"></div>
         
+        <script src="node_modules/fourier-transform/index.js"></script>
         <script src="node_modules/fourier/fourier.js"></script>
         <script src="extended-analysis.js"></script>
         <script src="R8data.js"></script>
