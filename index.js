@@ -37,25 +37,27 @@ function insertData(graph){
   sample = [graph.data[0].x, graph.data[0].y]; // makes a graph data "copy"
   newData = new Array(2);
 
+  //
   data[0] = convertTimeArray(data[0], true);
   sample[0] = convertTimeArray(sample[0], true);
 
-  finalX = sample[0][sample[0].length - 1]; // saves the last time
+  finalX = sample[0][sample[0].length - 1].getTime(); // saves the last time
 
   for(i = 0; i < data.length; i++){
     sample[i] = sample[i].slice(0, Math.floor(sample[i].length/2)); // takes the first sample's half
 
     if(i==0) for(j = 0; j < sample[0].length; j++){ // extends the sample x value from finalX
-      sample[0][j] = finalX + j*1000 + 1;
+      sample[0][j] = new Date(finalX + (j+1)*1000*60*15);
     }
 
     newData[i] = new Array(data[i].length + sample[i].length);
     newData[i] = data[i].concat(sample[i]);
   }
 
+  newData[0] = convertTimeArray(newData[0],false);
   console.log(newData);
 
-  graph.data = generateTrace(newData);
+  graph.data = generateTrace(newData, true);
   Plotly.redraw(graph);
 }
 /** Converts timestamps in dates or dates in timestamps
@@ -75,25 +77,15 @@ function convertTimeArray(array, inverse){
  * @param {Array} data current data from plotted graph
  */
 function renderGraph(graph, data){
-  var layout = {
-    xaxis: {
-      smoothing: 1,
-      minorgridcount: 9,
-    },
-    yaxis: {
-      ticksuffix: i == 0 ? '%':'ºC', //Hardcoded, try to improve
-      smoothing: 1,
-      minorgridcount: 9,
-    },
-  };
   Plotly.newPlot(graph, generateTrace(data, true), layout);
 }
 
 /** Format the data array as object to Plotly functions
   * @param { Array } data contains y and x values 
+  * @param { Boolean } isObejct dictates if the data will be object or array
  */
-function generateTrace(data, i){
-  if(i)
+function generateTrace(data, isObejct){
+  if(isObejct)
     return [{x:data[0], y:data[1]}];
   else 
     return {name:'',x:data[0], y:data[1]};
@@ -110,24 +102,6 @@ var secondDataSet = window.datasets['15361'];
 var thirdDataSet = window.datasets['15377'];
 var fourthDataSet = window.datasets['17006'];
 var dataSets = [firstDataSet, secondDataSet, thirdDataSet, fourthDataSet];
-
-//first Render
-desData = [];
-aio = new Array(4);
-for(var i = 0; i < graphs.length; i++){
-  desData[i] = desserializeData(dataSets[i]);
-  for(j = 0; j < desData[i][0].length; j++){
-    desData[i][0][j] = desData[i][0][j] == null? null : timeConverter(desData[i][0][j], false);
-  }
-  renderGraph(graphs[i], desData[i]);
-  aio[i] =  {
-    name: i == 0? '15360' : i==1? '15361': i==2? '15377': '17006',
-    x: desData[i][0],
-    y: desData[i][1],
-    type: 'scatter',
-    yaxis: i==0? 'y2': undefined,
-  };
-}
 
 var layout = {
   xaxis: {
@@ -150,7 +124,25 @@ var layout = {
     dtick: 20,
     overlaying: 'y', 
     side: 'right',
-}
+  }
 };
+
+//first Render
+desData = [];
+aio = new Array(4);
+for(var i = 0; i < graphs.length; i++){
+  desData[i] = desserializeData(dataSets[i]);
+  for(j = 0; j < desData[i][0].length; j++){
+    desData[i][0][j] = desData[i][0][j] == null? null : timeConverter(desData[i][0][j], false);
+  }
+  renderGraph(graphs[i], desData[i]);
+  aio[i] =  {
+    name: i == 0? '15360' : i==1? '15361': i==2? '15377': '17006',
+    x: desData[i][0],
+    y: desData[i][1],
+    type: 'scatter',
+    yaxis: i==0? 'y2': undefined,
+  };
+}
 
 Plotly.newPlot(document.getElementById('aio'), aio,layout);

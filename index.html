@@ -4,7 +4,7 @@
         <style>
             .graph{
                 width:100%;
-                height:100%;
+                height:700px;
             }
             button{
                 background-color: #1f77b4;
@@ -21,7 +21,7 @@
     <body>
 
 
-        <button onclick="insertData(document.getElementById('aio'))">Generate Data</button>
+        <button onclick="insertData(document.getElementById('aio'))"disabled style="background-color: grey">Generate Data(Disabled)</button>
         <div id="aio" class="graph"></div>
 
         <button onclick="insertData(graphs[0])">Generate Data</button>
