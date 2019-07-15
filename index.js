@@ -21,20 +21,16 @@ function desserializeData(dataset){
  * Purge unecessary time data, to be easier to see in the DOM
  * @param {Date} time contains a unix timestamp. 
  */
-function timeConverter(time){
-  aux = new Date(time);
+function timeConverter(unixStamp){
+  date = new Date(unixStamp*1000);
   
-  min = aux.getMinutes();
-  min = min > 10? min : '0' + min;
-  min = min == '010'? '01' : min;
+  hours = date.getHours();
+  minutes = "0" + date.getMinutes();
+  seconds = "0" + date.getSeconds();
+
+  formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
   
-  sec = aux.getSeconds();
-  sec = sec > 10? sec : '0' + sec;
-  sec = sec == '010'? '01' : sec;
-  
-  result =  aux.getHours() + ':' + min + ':' + sec;
-  
-  return result;
+  return formattedTime;
 }
 
 /**
@@ -83,14 +79,17 @@ function renderGraph(graph, data){
       minorgridcount: 9,
     },
   };
-  Plotly.newPlot(graph, generateTrace(data), layout);
+  Plotly.newPlot(graph, generateTrace(data, true), layout);
 }
 
 /** Format the data array as object to Plotly functions
   * @param { Array } data contains y and x values 
  */
-function generateTrace(data){
-  return [{x:data[0], y:data[1]}];
+function generateTrace(data, i){
+  if(i)
+    return [{x:data[0], y:data[1]}];
+  else 
+    return {name:'',x:data[0], y:data[1]};
 }
 
 var firstGraph = document.getElementById('first');
@@ -106,6 +105,41 @@ var fourthDataSet = window.datasets['17006'];
 var dataSets = [firstDataSet, secondDataSet, thirdDataSet, fourthDataSet];
 
 //first Render
+desData = [];
+aio = new Array(4);
 for(var i = 0; i < graphs.length; i++){
-  renderGraph(graphs[i], desserializeData(dataSets[i]));
+  desData[i] = desserializeData(dataSets[i]);
+  renderGraph(graphs[i], desData[i]);
+  aio[i] =  {
+    x: timeConverter(desData[i][0]),
+    y: desData[i][1],
+    type: 'scatter'
+  };
 }
+
+var layout = {
+  xaxis: {
+    autotick: false,
+    ticks: 'outside',
+    tick0: 0,
+    dtick: 0.25,
+    ticklen: 8,
+    tickwidth: 4,
+    tickcolor: '#000'
+  },
+  yaxis: {
+    autotick: false,
+    ticks: 'outside',
+    tick0: 0,
+    dtick: 0.25,
+    ticklen: 8,
+    tickwidth: 4,
+    tickcolor: '#000'
+  },
+  yaxis2: {
+  title: 'trace0',
+  side: 'right'
+}
+};
+
+Plotly.newPlot(document.getElementById('aio'), aio);
