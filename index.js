@@ -159,3 +159,46 @@ var dataSets = [firstDataSet, secondDataSet, thirdDataSet, fourthDataSet];
 for(var i = 0; i < graphs.length; i++){
   renderGraph(graphs[i], desserializeData(dataSets[i]));
 }
+
+
+/** Transform the graph in a bollinger graph
+    @param { DOM Element } graph contains a div and it's data
+ */
+function bollinger(graph){
+  data = graph.data[0];
+  trace0 = {
+    line: {width: 1}, 
+    mode: 'lines', 
+    name: 'Moving Average', 
+    type: 'scatter',
+    x: data.x,
+    y: data.y, 
+    yaxis: 'y2', 
+    marker: {color: '#E377C2'}
+  };
+  trace1 = {
+    line: {width: 1}, 
+    name: 'Bollinger Bands', 
+    type: 'scatter', 
+    yaxis: 'y2',
+    x: data.x,
+    y: data.y, 
+    marker: {color: '#ccc'}, 
+    hoverinfo: 'none', 
+    legendgroup: 'Bollinger Bands'
+  };
+  trace2 = {
+    line: {width: 1}, 
+    type: 'scatter', 
+    yaxis: 'y2', 
+    x: data.x,
+    y: data.y,
+    marker: {color: '#ccc'}, 
+    hoverinfo: 'none', 
+    showlegend: false, 
+    legendgroup: 'Bollinger Bands'
+  };
+  data = [trace0, trace1, trace2];
+  graph.data = data;
+  Plotly.redraw(graph);
+}

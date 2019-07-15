@@ -21,23 +21,31 @@
     <body>
         <button onclick="location.href='/bollinger-bands.html'" style="background-color: palevioletred">Bollinger Test</button>
         <button onclick="insertData(graphs[0])">Generate Data</button>
-        <button disabled onclick="fourierTransform(graphs[0]);" style="background-color: grey">Frequency Domain</button>
+        <button disabled onclick="fourierTransform(graphs[0]);" style="background-color: grey">Frequency Domain(disabled)</button>
         <button onclick="traceAvarage(graphs[0]);">Trace Avarage</button>
+        <button onclick="bollinger(graphs[0]);" style="background-color: palevioletred">Data Trending</button>
+        <button onclick="renderGraph(graphs[0], desserializeData(dataSets[0]));" style="background-color: black">Original Data</button>
         <div id="first"  class="graph"></div>
 
         <button onclick="insertData(graphs[1])">Generate Data</button>
-        <button disabled onclick="fourierTransform(graphs[1]);" style="background-color: grey">Frequency Domain</button>
+        <button disabled onclick="fourierTransform(graphs[1]);" style="background-color: grey">Frequency Domain(disabled)</button>
         <button onclick="traceAvarage(graphs[1]);">Trace Avarage</button>
+        <button onclick="bollinger(graphs[1]);" style="background-color: palevioletred">Data Trending</button>
+        <button onclick="renderGraph(graphs[1], desserializeData(dataSets[1]));" style="background-color: black">Original Data</button>
         <div id="second"class="graph"></div>
 
         <button onclick="insertData(graphs[2])">Generate Data</button>
-        <button disabled onclick="fourierTransform(graphs[2]);" style="background-color: grey">Frequency Domain</button>
+        <button disabled onclick="fourierTransform(graphs[2]);" style="background-color: grey">Frequency Domain(disabled)</button>
         <button onclick="traceAvarage(graphs[2]);">Trace Avarage</button>
+        <button onclick="bollinger(graphs[2]);" style="background-color: palevioletred">Data Trending</button>
+        <button onclick="renderGraph(graphs[2], desserializeData(dataSets[2]));" style="background-color: black">Original Data</button>
         <div id="third" class="graph"></div>
 
         <button onclick="insertData(graphs[3])">Generate Data</button>
-        <button disabled onclick="fourierTransform(graphs[3]);" style="background-color: grey">Frequency Domain</button>
+        <button disabled onclick="fourierTransform(graphs[3]);" style="background-color: grey">Frequency Domain(disabled)</button>
         <button onclick="traceAvarage(graphs[3]);">Trace Avarage</button>
+        <button onclick="bollinger(graphs[3]);" style="background-color: palevioletred">Data Trending</button>
+        <button onclick="renderGraph(graphs[3], desserializeData(dataSets[3]));" style="background-color: black">Original Data</button>
         <div id="fourth"class="graph"></div>
         
         <script src="node_modules/fourier-transform/index.js"></script>
