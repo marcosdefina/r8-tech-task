@@ -3,14 +3,16 @@
     <head>
         <style>
             .graph{
-                width:100%;
+                width:80%;
                 height:700px;
+                margin: 0 auto;
             }
             button{
                 background-color: #1f77b4;
                 color:aliceblue;
                 border-radius: 12px;
                 cursor: pointer;
+                
             }
             button:focus{
                 outline: none;
@@ -19,12 +21,12 @@
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     </head>
     <body>
-
-
-        <button onclick="insertData(document.getElementById('aio'))"disabled style="background-color: grey">Generate Data(Disabled)</button>
+        <!--TODO: Make insertData works to more than one dataset-->
         <div id="aio" class="graph"></div>
 
         <button onclick="insertData(graphs[0])">Generate Data</button>
+        <!--TODO: renderGraph is not converting the time, make it work-->
+        <button onclick="renderGraph(graphs[0], desserializeData(dataSets[0]));" style="background-color: black">Original Data</button>
         <div id="first"  class="graph"></div>
 
         <button onclick="insertData(graphs[1])">Generate Data</button>
