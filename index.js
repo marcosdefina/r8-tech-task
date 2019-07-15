@@ -22,15 +22,7 @@ function desserializeData(dataset){
  * @param {Date} time contains a unix timestamp. 
  */
 function timeConverter(unixStamp){
-  date = new Date(unixStamp*1000);
-  
-  hours = date.getHours();
-  minutes = "0" + date.getMinutes();
-  seconds = "0" + date.getSeconds();
-
-  formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-  
-  return formattedTime;
+  return new Date(unixStamp*1000);
 }
 
 /**
@@ -109,11 +101,14 @@ desData = [];
 aio = new Array(4);
 for(var i = 0; i < graphs.length; i++){
   desData[i] = desserializeData(dataSets[i]);
+  for(j = 0; j < desData[i][0].length; j++){
+    desData[i][0][j] = desData[i][0][j] == null? null : timeConverter(desData[i][0][j]);
+  }
   renderGraph(graphs[i], desData[i]);
   aio[i] =  {
-    x: timeConverter(desData[i][0]),
+    x: desData[i][0],
     y: desData[i][1],
-    type: 'scatter'
+    type: 'scatter',
   };
 }
 
@@ -121,24 +116,21 @@ var layout = {
   xaxis: {
     autotick: false,
     ticks: 'outside',
-    tick0: 0,
-    dtick: 0.25,
-    ticklen: 8,
-    tickwidth: 4,
     tickcolor: '#000'
   },
   yaxis: {
     autotick: false,
+    title: 'trace',
+    ticksuffix:'ºC',
     ticks: 'outside',
-    tick0: 0,
-    dtick: 0.25,
-    ticklen: 8,
-    tickwidth: 4,
-    tickcolor: '#000'
+    tickcolor: '#000',
+    side: 'right',
   },
   yaxis2: {
-  title: 'trace0',
-  side: 'right'
+    title: 'trace0',
+    ticksuffix:'%',
+    overlaying: 'y', 
+    side: 'left',
 }
 };
 
