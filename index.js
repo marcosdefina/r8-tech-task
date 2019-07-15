@@ -18,11 +18,13 @@ function desserializeData(dataset){
 }
 
 /**
- * Purge unecessary time data, to be easier to see in the DOM
- * @param {Date} time contains a unix timestamp. 
+ * Converts date in timestamp and the inverse way
+ * @param { Date, UnixTimeStamp } date contains a unix timestamp or a Date Object. 
+ * @param { Boolean } inverse defines which way to convert.
  */
-function timeConverter(unixStamp){
-  return new Date(unixStamp*1000);
+function timeConverter(date, inverse){
+  if(inverse) return Math.round(date.getTime()/1000);
+  else return new Date(date*1000);
 }
 
 /**
@@ -34,6 +36,9 @@ function insertData(graph){
   data = [graph.data[0].x, graph.data[0].y]; // takes this graph data
   sample = [graph.data[0].x, graph.data[0].y]; // makes a graph data "copy"
   newData = new Array(2);
+
+  data[0] = convertTimeArray(data[0], true);
+  sample[0] = convertTimeArray(sample[0], true);
 
   finalX = sample[0][sample[0].length - 1]; // saves the last time
 
@@ -52,6 +57,16 @@ function insertData(graph){
 
   graph.data = generateTrace(newData);
   Plotly.redraw(graph);
+}
+/** Converts timestamps in dates or dates in timestamps
+    @param { Array } array timestamps or dates to be converted
+    @param { Boolean } inverse dictates the order of the convertion 
+ */
+function convertTimeArray(array, inverse){
+  for(i=0; i<array[0].length; i++){
+    array[0][i] = timeConverter(array[0][i], inverse);
+  }
+  return array;
 }
 
 /**
@@ -102,10 +117,11 @@ aio = new Array(4);
 for(var i = 0; i < graphs.length; i++){
   desData[i] = desserializeData(dataSets[i]);
   for(j = 0; j < desData[i][0].length; j++){
-    desData[i][0][j] = desData[i][0][j] == null? null : timeConverter(desData[i][0][j]);
+    desData[i][0][j] = desData[i][0][j] == null? null : timeConverter(desData[i][0][j], false);
   }
   renderGraph(graphs[i], desData[i]);
   aio[i] =  {
+    name: i == 0? '15360' : i==1? '15361': i==2? '15377': '17006',
     x: desData[i][0],
     y: desData[i][1],
     type: 'scatter',
