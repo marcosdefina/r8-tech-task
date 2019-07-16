@@ -99,14 +99,17 @@ var secondDataSet = window.datasets['15361'];
 var thirdDataSet = window.datasets['15377'];
 var fourthDataSet = window.datasets['17006'];
 var dataSets = [firstDataSet, secondDataSet, thirdDataSet, fourthDataSet];
-
 var layout = {
+  title: 'Cooling System and Temperatures',
   xaxis: {
     autotick: false,
     ticks: 'outside',
     dtick: 1000*60*60*24*30,
+    rangeselector: selectorOptions,
+    rangeslider: {}
   },
   yaxis: {
+    fixedrange: true,
     autotick: false,
     title: 'Temperature',
     ticksuffix:'ºC',
@@ -115,6 +118,7 @@ var layout = {
     side: 'left',
   },
   yaxis2: {
+    fixedrange: true,
     autotick: false,
     title: 'Potential Savings',
     ticksuffix:'%',
@@ -122,6 +126,32 @@ var layout = {
     overlaying: 'y', 
     side: 'right',
   }
+};
+
+var selectorOptions = {
+    buttons: [{
+        step: 'month',
+        stepmode: 'backward',
+        count: 1,
+        label: '1m'
+    }, {
+        step: 'month',
+        stepmode: 'backward',
+        count: 6,
+        label: '6m'
+    }, {
+        step: 'year',
+        stepmode: 'todate',
+        count: 1,
+        label: 'YTD'
+    }, {
+        step: 'year',
+        stepmode: 'backward',
+        count: 1,
+        label: '1y'
+    }, {
+        step: 'all',
+    }],
 };
 
 //first Render
@@ -133,14 +163,12 @@ for(var i = 0; i < 4; i++){
     desData[i][0][j] = desData[i][0][j] == null? null : timeConverter(desData[i][0][j], false);
   }
   aio[i] =  {
-    name: i == 0? '15360' : i==1? '15361': i==2? '15377': '17006',
+    name: i == 0? 'Ventilation unit cooling coil' : i==1? 'Outside Air Temperature,': i==2? 'Ventilation unit supply': 'Room temperature',
     x: desData[i][0],
     y: desData[i][1],
     type: 'scatter',
     yaxis: i==0? 'y2': undefined,
   };
 }
-function firstPlot(){
-  Plotly.newPlot(document.getElementById('aio'), aio,layout);
-}
-firstPlot();
+
+Plotly.plot('aio', aio, layout);
