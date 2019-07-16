@@ -32,7 +32,6 @@ function timeConverter(date, inverse){
  * @param {DOM Element} graph DOM Element where the graph will be reendered
  */
 function insertData(graph){
-  console.log(graph.data)
   for(k = 0; k < graph.data.length; k++){
     
     data = [graph.data[k].x, graph.data[k].y]; // takes this graph data
@@ -56,10 +55,8 @@ function insertData(graph){
     }
     
     newData[0] = convertTimeArray(newData[0],false);
-    graph.data[k] = generateTrace(newData, false);
+    graph.data[k] = generateTrace(newData, k);
   }
-
-  console.log(graph.data);
 
   Plotly.redraw(graph);
 }
@@ -85,13 +82,16 @@ function renderGraph(graph, data){
 
 /** Format the data array as object to Plotly functions
   * @param { Array } data contains y and x values 
-  * @param { Boolean } isObejct dictates if the data will be object or array
+  * @param { Integer } i selects the trace name and axis
  */
-function generateTrace(data, isObejct){
-  if(isObejct)
-    return [{x:data[0], y:data[1]}];
-  else 
-    return {name:'',x:data[0], y:data[1]};
+function generateTrace(data, i){
+  return  {
+      name: i == 0? 'Ventilation unit cooling coil' : i==1? 'Outside Air Temperature,': i==2? 'Ventilation unit supply': 'Room temperature',
+      x:data[0],
+      y:data[1],
+      type: 'scatter',
+      yaxis: i==0? 'y2': undefined,
+    };
 }
 
 var firstDataSet = window.datasets['15360'];
@@ -162,13 +162,7 @@ for(var i = 0; i < 4; i++){
   for(j = 0; j < desData[i][0].length; j++){
     desData[i][0][j] = desData[i][0][j] == null? null : timeConverter(desData[i][0][j], false);
   }
-  aio[i] =  {
-    name: i == 0? 'Ventilation unit cooling coil' : i==1? 'Outside Air Temperature,': i==2? 'Ventilation unit supply': 'Room temperature',
-    x: desData[i][0],
-    y: desData[i][1],
-    type: 'scatter',
-    yaxis: i==0? 'y2': undefined,
-  };
+  aio[i] =  generateTrace(desData[i], i);
 }
 
 Plotly.plot('aio', aio, layout);
